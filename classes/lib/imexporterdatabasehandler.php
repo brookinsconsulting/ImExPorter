@@ -25,7 +25,7 @@ class ImExPorterDatabaseHandler
             throw new Exception('No sql for execution given!');
         }
         
-        return $this->ezDb->arrayQuery($sql);
+        return @$this->ezDb->arrayQuery($sql);
     }
     
     /**
@@ -69,25 +69,44 @@ class ImExPorterDatabaseHandler
         }
     }
     
-    public function insertTableDataIntoDb($tableName, ImExPorterTableInterface $table)
+    /**
+     * inserts given row-object into table
+     * @param string $tableName
+     * @param ImExPorterRowInterface $tableRow 
+     */
+    public function insertRowIntoTable($tableName=false, ImExPorterRowInterface $tableRow)
     {
-        $definedVars = get_object_vars($table);
+        $values = get_object_vars($tableRow);
+        $columns = array_keys($values);
         
-        $cols = '';
-        $values = '';
+        $queryColumns = implode(',', $columns);
         
-        foreach($definedVars as $name => $value)
+        foreach($values as $key => $value)
         {
-            $cols .= $name . ',';
-            $values .= "'" . $value . "',";
+            $values[$key] = "'" . mysql_real_escape_string($value) . "'";
         }
         
-        $cols = substr($cols, 0, strlen($cols)-1);
-        $values = substr($values, 0, strlen($values)-1);
+        $queryValues = implode(',', $values);
         
+        $sql = "INSERT INTO " . $tableName . " (" . $queryColumns . ") VALUES(" . $queryValues . ")";
         
-        $sql = "INSERT INTO " . $tableName . " (" . $cols . ") VALUES(" . $values . ")";
-        var_dump($sql);
+        $databaseHandler = new ImExPorterDatabaseHandler();
+        $databaseHandler->execute($sql);
+    }
+    
+    /**
+     * inserts the given table into tb
+     * @param string $tableName
+     * @param ImExPorterTableInterface $table 
+     */
+    public function insertTableDataIntoDb($tableName, ImExPorterTableInterface $table)
+    {
+
+        foreach($table->getRows() as $tableRow)
+        {
+            $this->insertRowIntoTable($tableName, $tableRow);
+        }
+        
     }
     
 }

@@ -2,6 +2,8 @@
 
 set_time_limit( 0 );
 
+define('__FOLDER__', './var/export/');
+
 require 'autoload.php';
 
 $cli          = eZCLI::instance();
@@ -12,10 +14,19 @@ $script = eZScript::instance(array(
     'use-extensions' => true
 ));
 
+$cli->output('Importing export ...');
+
 $imExPorter = new ImExPorter();
 
-$imExPorter->import();
+try
+{
+    $imExPorter->import();
+}
+catch(Exception $exception)
+{
+    $cli->output($exception->getMessage());
+}
 
 //-- final shutdown
-$cli->output( "Done." );
+$cli->output('Done.');
 $script->shutdown();
