@@ -6,24 +6,33 @@
 class ImExPorterDumpImporter
 {
     
+    /**
+     * import data from dump
+     * @throws Exception 
+     */
     public function importFromDump()
     {
-        $fileList = scandir('./bck');
-        
-        unset($fileList[0]);
-        unset($fileList[1]);
-        
         $compressor = new ImExPorterCompressor();
         $database = new ImExPorterDatabase();
         $databaseHandler = new ImExPorterDatabaseHandler();
         
-        foreach($fileList as $file)
+        if(!is_dir(__FOLDER__))
         {
-            $table = $compressor->decompress(file_get_contents('./bck/' . $file));
-            $database->addTable(str_replace('.bck', '', $file), $table);
+            throw new Exception('export-folder does not exist!');
         }
-
-        return $database;
+        
+        $databaseHandler->truncateAllTables();
+        
+        $fileList = scandir(__FOLDER__);
+        
+        for($i=2;$i<count($fileList);$i++)
+        {
+            $fileName = $fileList[$i];
+            $tableName = str_replace('.bck', '', $fileName);
+            
+            $table = $compressor->decompress(file_get_contents(__FOLDER__ . $fileName));
+            $databaseHandler->insertTableDataIntoDb($tableName, $table);
+        }
     }
     
 }

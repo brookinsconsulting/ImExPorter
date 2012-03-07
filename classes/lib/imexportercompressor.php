@@ -21,7 +21,7 @@ class ImExPorterCompressor
     /**
      * decompresses a string and creates a table object
      * @param type $dumpString
-     * @return type 
+     * @return ImExPorterTableInterface 
      */
     public function decompress($dumpString)
     {
