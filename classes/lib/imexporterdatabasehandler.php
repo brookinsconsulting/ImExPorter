@@ -10,7 +10,9 @@ class ImExPorterDatabaseHandler
     
     public function __construct()
     {
-        $this->ezDb = eZDB::instance();
+        $settingsHandler = new ImExPorterSettingsHandler();
+        $databaseSettings = $settingsHandler->getDatabaseSettings();
+        $this->ezDb = eZDB::instance(false, $databaseSettings);
     }
     
     /**
@@ -25,7 +27,7 @@ class ImExPorterDatabaseHandler
             throw new Exception('No sql for execution given!');
         }
         
-        return @$this->ezDb->arrayQuery($sql);
+        return $this->ezDb->arrayQuery($sql);
     }
     
     /**
@@ -51,7 +53,7 @@ class ImExPorterDatabaseHandler
         }
         
         $sql = 'SELECT * FROM ' . $tableName;
-        
+
         return $this->execute($sql);
     }
     

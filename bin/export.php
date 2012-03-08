@@ -2,15 +2,13 @@
 
 set_time_limit( 0 );
 
-define('__FOLDER__', './var/export/');
-
 require 'autoload.php';
 
 $cli          = eZCLI::instance();
 
 $script = eZScript::instance(array(
     'use-session'    => false,
-    'use-modules'    => true,
+    'use-modules'    => false,
     'use-extensions' => true
 ));
 

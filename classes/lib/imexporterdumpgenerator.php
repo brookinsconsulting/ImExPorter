@@ -12,7 +12,11 @@ class ImExPorterDumpGenerator
      */
     public function generateDumpFromDb(ImExPorterDatabase $database)
     {
-        if(!is_dir(__FOLDER__) || !is_writable(__FOLDER__))
+        $settingsHandler = new ImExPorterSettingsHandler();
+        $extensionSettings = $settingsHandler->getExtensionSettings();
+        $bckDir = $extensionSettings['bckDir'];
+        
+        if(!is_dir($bckDir) || !is_writable($bckDir))
         {
             throw new Exception('export-folder does not exist or is not writeable!');
         }
@@ -22,7 +26,7 @@ class ImExPorterDumpGenerator
         foreach($database->getTables() as $tableName => $table)
         {
             $compressedTable = $compressor->compressTable($table);
-            file_put_contents(__FOLDER__ . $tableName . '.bck', $compressedTable);
+            file_put_contents($bckDir . $tableName . '.bck', $compressedTable);
         }
     }
     

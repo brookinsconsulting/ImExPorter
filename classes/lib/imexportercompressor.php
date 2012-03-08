@@ -13,9 +13,12 @@ class ImExPorterCompressor
      */
     public function compressTable(ImExPorterTableInterface $table)
     {
+        $settingsHandler = new ImExPorterSettingsHandler();
+        $extensionSettings = $settingsHandler->getExtensionSettings();
+        
         $serializedTable = serialize($table);
         $base64encodedTable = base64_encode($serializedTable);
-        return gzdeflate($base64encodedTable, 9);
+        return gzdeflate($base64encodedTable, $extensionSettings['compressionLevel']);
     }
     
     /**
