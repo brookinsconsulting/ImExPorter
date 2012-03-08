@@ -62,11 +62,15 @@ class ImExPorterDatabaseHandler
     {
         $tableNames = $this->getTableNames();
         
+        $this->execute('BEGIN');
+        
         foreach($tableNames as $tableName)
         {
             $sql = 'TRUNCATE ' . $tableName;
             $this->execute($sql);
         }
+        
+        $this->execute('COMMIT');
     }
     
     /**
@@ -90,8 +94,7 @@ class ImExPorterDatabaseHandler
         
         $sql = "INSERT INTO " . $tableName . " (" . $queryColumns . ") VALUES(" . $queryValues . ")";
         
-        $databaseHandler = new ImExPorterDatabaseHandler();
-        $databaseHandler->execute($sql);
+        $this->execute($sql);
     }
     
     /**
@@ -101,11 +104,15 @@ class ImExPorterDatabaseHandler
      */
     public function insertTableDataIntoDb($tableName, ImExPorterTableInterface $table)
     {
+        
+        $this->execute('BEGIN');
 
         foreach($table->getRows() as $tableRow)
         {
             $this->insertRowIntoTable($tableName, $tableRow);
         }
+        
+        $this->execute('COMMIT');
         
     }
     
