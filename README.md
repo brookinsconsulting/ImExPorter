@@ -1,11 +1,11 @@
 ImExPorter - An eZpublish database content importer and exporter
 
 # Installation
->Simply clone into extensions directory.
+>+ Simply clone into extensions directory or add as submodule (git submodule add https://benboi@github.com/benboi/ImExPorter.git extension/imexporter)
 >
->Add to your extensions-list.
+>+ Add "imexporter" to your extensions-list.
 >
->Create a directory named "export" in your projects var directory or change the directory as you like, by chaning constants in import and export script
+>+ Create a directory named "export" in your projects var directory or change the directory as you like, by changing or overwriting the settings file
 
 # TODO
->Due to using an query for every row of a table to insert, performance on importing data is low. Exporting is almost done instantly.
+>+ support for creating / changing the root structure (tables etc.) using a sql file
