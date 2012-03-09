@@ -21,7 +21,6 @@ class ImExPorterSettingsHandler
      */
     public function findMatchingExtension()
     {
-        //$this->ezIni->reset();
         
         // get ImExPorter extension / settings mappings
         $extensionSettings = $this->getExtensionSettings();
@@ -37,6 +36,7 @@ class ImExPorterSettingsHandler
         }
         
         return false;
+        
     }
     
     /**
@@ -56,8 +56,7 @@ class ImExPorterSettingsHandler
             'user' => $this->ezIni->variable('DatabaseSettings', 'User'),
             'port' => $this->ezIni->variable('DatabaseSettings', 'Port'),
             'password' => $this->ezIni->variable('DatabaseSettings', 'Password'),
-            'database' => $this->ezIni->variable('DatabaseSettings', 'Database'),
-            'charset' => $this->ezIni->variable('DatabaseSettings', 'Charset'),            
+            'database' => $this->ezIni->variable('DatabaseSettings', 'Database')        
         );
 
     }
@@ -68,9 +67,7 @@ class ImExPorterSettingsHandler
      */
     public function getExtensionDatabaseSettings()
     {
-        
-        //$this->ezIni->reset();
-        
+
         $extension = $this->findMatchingExtension();
         
         if($extension === false)
@@ -99,8 +96,7 @@ class ImExPorterSettingsHandler
             'user' => $this->ezIni->variable('DatabaseSettings', 'User'),
             'port' => $this->ezIni->variable('DatabaseSettings', 'Port'),
             'password' => $this->ezIni->variable('DatabaseSettings', 'Password'),
-            'database' => $this->ezIni->variable('DatabaseSettings', 'Database'),
-            'charset' => $this->ezIni->variable('DatabaseSettings', 'Charset'),            
+            'database' => $this->ezIni->variable('DatabaseSettings', 'Database')      
         );
         
     }
@@ -111,7 +107,6 @@ class ImExPorterSettingsHandler
      */
     public function getExtensionSettings()
     {
-        //$this->ezIni->reset();
         
         if(!$this->ezIni->hasSection('ImExPortSettings'))
         {
@@ -132,7 +127,7 @@ class ImExPorterSettingsHandler
      */
     public function getFallbackExtensionSettings()
     {
-        //$this->ezIni->reset();
+        
         $this->ezIni = eZINI::fetchFromFile('./extension/imexporter/settings/imexporter.ini');
 
         return array(
@@ -140,6 +135,7 @@ class ImExPorterSettingsHandler
             'bckDir' => $this->ezIni->variable('ImExPortSettings', 'BckDir'),
             'extensionSettingsMap' => $this->ezIni->variable('ImExPortSettings', 'ExtensionSettingsMap')
         );
+        
     }
     
 }

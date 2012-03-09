@@ -27,7 +27,7 @@ class ImExPorterDatabaseHandler
             throw new Exception('No sql for execution given!');
         }
         
-        return $this->ezDb->arrayQuery($sql);
+        return @$this->ezDb->arrayQuery($sql);
     }
     
     /**
