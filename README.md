@@ -5,7 +5,11 @@ ImExPorter - An eZpublish database content importer and exporter
 >
 >+ Add "imexporter" to your extensions-list.
 >
->+ Create a directory named "export" in your projects var directory or change the directory as you like, by changing or overwriting the settings file
+>+ Run php bin/php/ezpgenerateautoloads.php -e
+>
+>+ Copy settings from imexport extension (if you like to modify them) and add them to the siteacces or (better) settings override
+>
+>+ Create a directory named "export" in your projects var directory (or change it in your config file, see step before)
 
 # TODO
 >+ support for creating / changing the root structure (tables etc.) using a sql file
