@@ -72,25 +72,25 @@ class ImExPorterSettingsHandler
         
         if($extension === false)
         {
-            return false;
+            throw new Exception('No global database-settings and no matching extension found!');
         }
         
         $extensionSettings = $this->getExtensionSettings();
         $extensionConfigFile = $extensionSettings['extensionSettingsMap'][$extension];
-        $extensionConfigFilePath = './extension/' . $extension . '/' . $extensionConfigFile;
+        $extensionConfigFilePath = ImExPorterHelper::getExtensionDir() . $extension . '/' . $extensionConfigFile;
         
         if(!is_file($extensionConfigFilePath))
         {
-            return false;
+            throw new Exception('Could not find database-settings anywhere!');
         }
         
         $this->ezIni = eZINI::fetchFromFile($extensionConfigFilePath);
         
         if(!$this->ezIni->hasSection('DatabaseSettings'))
         {
-            return false;
+            throw new Exception('Found extension config-file given in settings, but no database configured there!');
         }
-        
+
         return array(
             'server' => $this->ezIni->variable('DatabaseSettings', 'Server'),
             'user' => $this->ezIni->variable('DatabaseSettings', 'User'),
@@ -128,7 +128,7 @@ class ImExPorterSettingsHandler
     public function getFallbackExtensionSettings()
     {
         
-        $this->ezIni = eZINI::fetchFromFile('./extension/imexporter/settings/imexporter.ini');
+        $this->ezIni = eZINI::fetchFromFile(ImExPorterHelper::getImExPorterDir() . 'settings/imexporter.ini');
 
         return array(
             'compressionLevel' => $this->ezIni->variable('ImExPortSettings', 'CompressionLevel'),
