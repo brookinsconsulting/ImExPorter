@@ -24,7 +24,7 @@ ImExPorter - Handle your eZ Publish database easier! (for mysql and innodb)
 >
 >+ Dont waste time, just use a one-liner!
 >
->+ Switch your enviroments (dev / live) easily!
+>+ Switch your environments (dev / live) easily!
 
 # Installation
 >+ Simply clone into extensions directory or add as submodule (git submodule add https://benboi@github.com/benboi/ImExPorter.git extension/imexporter)
@@ -49,10 +49,10 @@ ImExPorter - Handle your eZ Publish database easier! (for mysql and innodb)
 
 # Troubleshooting
 >+ ImExPorter is not finding my database-settings
-> Where do your database-settings live?
-> site-access
-> settings/override
-> extension
+>  Where do your database-settings live?
+>* site-access
+>* settings/override
+>* extension
 >
 > The first two wont be your problem, if you configured the database in these places. If you outsourced your database-settings to
 > an extension (for staging/environment separation for instance) then normally Ez Publish doesn't know these in cli-environment. With
