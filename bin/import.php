@@ -2,21 +2,33 @@
 
 require 'autoload.php';
 
-$cli          = eZCLI::instance();
+$cli = eZCLI::instance();
 
 $script = eZScript::instance(array(
-    'use-session'    => false,
-    'use-modules'    => false,
+    'description' => 'Import a snapshot to configured db',
+    'use-session' => false,
+    'use-modules' => false,
     'use-extensions' => true
 ));
 
-$cli->output('Importing snapshot ...');
+$options = $script->getOptions('[snapshot:]', array(
+    'snapshot' => 'The name of the snapshot',
+));
+
+$snapshotName = $options['snapshot'];
+
+if($snapshotName == '')
+{
+    $snapshotName = 'default';
+}
+
+$cli->output('Importing snapshot ' . $snapshotName . ' ...');
 
 $imExPorter = new ImExPorter();
 
 try
 {
-    $imExPorter->import();
+    $imExPorter->import($snapshotName);
 }
 catch(Exception $exception)
 {

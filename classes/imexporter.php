@@ -9,22 +9,22 @@ class ImExPorter
     /**
      * exports the current database to the filesystem 
      */
-    public function export()
-    {
+    public function export($snapshotName='default')
+    {        
         $databaseGenerator = new ImExPorterDatabaseGenerator();
         $database = $databaseGenerator->generate();
         
         $dumpGenerator = new ImExPorterDumpGenerator();
-        $dumpGenerator->generateDumpFromDb($database);
+        $dumpGenerator->generateDumpFromDb($database, $snapshotName);
     }
     
     /**
      * import to the current db from the filesystem 
      */
-    public function import()
+    public function import($snapshotName='default')
     {
         $dumpImporter = new ImExPorterDumpImporter();
-        $dumpImporter->importFromDump();
+        $dumpImporter->importFromDump($snapshotName);
     }
     
 }

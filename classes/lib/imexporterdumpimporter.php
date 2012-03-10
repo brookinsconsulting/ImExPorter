@@ -10,15 +10,20 @@ class ImExPorterDumpImporter
      * import data from dump
      * @throws Exception 
      */
-    public function importFromDump()
+    public function importFromDump($snapshotName=false)
     {
+        if($snapshotName === false)
+        {
+            throw new Exception('please define a snapshot-name!');
+        }
+        
         $compressor = new ImExPorterCompressor();
         $database = new ImExPorterDatabase();
         $databaseHandler = new ImExPorterDatabaseHandler();
         
         $settingsHandler = new ImExPorterSettingsHandler();
         $extensionSettings = $settingsHandler->getExtensionSettings();
-        $snapshotDir = ImExPorterHelper::getProjectDir() . $extensionSettings['snapshotDir'];
+        $snapshotDir = ImExPorterHelper::getProjectDir() . $extensionSettings['snapshotDir'] . $snapshotName . '/';
         
         if(!is_dir($snapshotDir))
         {

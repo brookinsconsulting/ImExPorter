@@ -5,18 +5,30 @@ require 'autoload.php';
 $cli          = eZCLI::instance();
 
 $script = eZScript::instance(array(
-    'use-session'    => false,
-    'use-modules'    => false,
+    'description' => 'Export configured db to a snapshot',
+    'use-session' => false,
+    'use-modules' => false,
     'use-extensions' => true
 ));
 
-$cli->output('Creating snapshot ...');
+$options = $script->getOptions('[snapshot:]', array(
+    'snapshot' => 'The name of the snapshot',
+));
+
+$snapshotName = $options['snapshot'];
+
+if($snapshotName == '')
+{
+    $snapshotName = 'default';
+}
+
+$cli->output('Creating snapshot ' . $snapshotName . ' ...');
 
 $imExPorter = new ImExPorter();
 
 try
 {
-    $imExPorter->export();
+    $imExPorter->export($snapshotName);
 }
 catch(Exception $exception)
 {

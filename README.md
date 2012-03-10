@@ -15,6 +15,17 @@ ImExPorter - Handle your eZ Publish database easier! (for mysql and innodb)
 > At the moment only the content is exported. ImExPorter requires you, to have the same table structure on each databases you import or export
 > from/to. This soon will be history.
 
+# Features
+>+ Create compressed snapshots of your db!
+>
+>+ Use multiple snapshots and switch between them!
+>
+>+ Take only the tables you need to export!
+>
+>+ Dont waste time, just use a one-liner!
+>
+>+ Switch your enviroments (dev / live) easily!
+
 # Installation
 >+ Simply clone into extensions directory or add as submodule (git submodule add https://benboi@github.com/benboi/ImExPorter.git extension/imexporter)
 >
@@ -29,7 +40,7 @@ ImExPorter - Handle your eZ Publish database easier! (for mysql and innodb)
 # Import / Export
 >+ Go to your projets root path via cli
 >
->+ Run: php extension/imexporter/bin/export.php
+>+ Run: php extension/imexporter/bin/export.php --snapshot=name (if you skip the last parameter, default will be used)
 >
 >+ The snapshot will now be written to your configured "SnapshotDir"
 >
