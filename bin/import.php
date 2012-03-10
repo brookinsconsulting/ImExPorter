@@ -1,7 +1,5 @@
 <?php
 
-set_time_limit( 0 );
-
 require 'autoload.php';
 
 $cli          = eZCLI::instance();
@@ -12,7 +10,7 @@ $script = eZScript::instance(array(
     'use-extensions' => true
 ));
 
-$cli->output('Importing export ...');
+$cli->output('Importing snapshot ...');
 
 $imExPorter = new ImExPorter();
 

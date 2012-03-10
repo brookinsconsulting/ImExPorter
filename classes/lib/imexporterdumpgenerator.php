@@ -14,11 +14,16 @@ class ImExPorterDumpGenerator
     {
         $settingsHandler = new ImExPorterSettingsHandler();
         $extensionSettings = $settingsHandler->getExtensionSettings();
-        $bckDir = $extensionSettings['bckDir'];
+        $snapshotDir = ImExPorterHelper::getProjectDir() . $extensionSettings['snapshotDir'];
         
-        if(!is_dir($bckDir) || !is_writable($bckDir))
+        if(!is_dir($snapshotDir))
         {
-            throw new Exception('export-folder does not exist or is not writeable!');
+            throw new Exception('snapshot-folder does not exist!');
+        }
+        
+        if(!is_writable($snapshotDir))
+        {
+            throw new Exception('snapshot-folder is not writeable!');
         }
         
         $compressor = new ImExPorterCompressor();
@@ -26,7 +31,7 @@ class ImExPorterDumpGenerator
         foreach($database->getTables() as $tableName => $table)
         {
             $compressedTable = $compressor->compressTable($table);
-            file_put_contents($bckDir . $tableName . '.bck', $compressedTable);
+            file_put_contents($snapshotDir . $tableName . '.ssf', $compressedTable);
         }
     }
     

@@ -18,23 +18,23 @@ class ImExPorterDumpImporter
         
         $settingsHandler = new ImExPorterSettingsHandler();
         $extensionSettings = $settingsHandler->getExtensionSettings();
-        $bckDir = $extensionSettings['bckDir'];
+        $snapshotDir = ImExPorterHelper::getProjectDir() . $extensionSettings['snapshotDir'];
         
-        if(!is_dir($bckDir))
+        if(!is_dir($snapshotDir))
         {
-            throw new Exception('export-folder does not exist!');
+            throw new Exception('snapshot-folder does not exist!');
         }
         
         $databaseHandler->truncateAllTables();
         
-        $fileList = scandir($bckDir);
+        $fileList = scandir($snapshotDir);
         
         for($i=2;$i<count($fileList);$i++)
         {
             $fileName = $fileList[$i];
-            $tableName = str_replace('.bck', '', $fileName);
+            $tableName = str_replace('.ssf', '', $fileName);
             
-            $table = $compressor->decompress(file_get_contents($bckDir . $fileName));
+            $table = $compressor->decompress(file_get_contents($snapshotDir . $fileName));
             $databaseHandler->insertTableDataIntoDb($tableName, $table);
         }
     }

@@ -115,7 +115,7 @@ class ImExPorterSettingsHandler
         
         return array(
             'compressionLevel' => $this->ezIni->variable('ImExPortSettings', 'CompressionLevel'),
-            'bckDir' => $this->ezIni->variable('ImExPortSettings', 'BckDir'),
+            'snapshotDir' => $this->ezIni->variable('ImExPortSettings', 'SnapshotDir'),
             'extensionSettingsMap' => $this->ezIni->variable('ImExPortSettings', 'ExtensionSettingsMap')
         );
 
@@ -132,7 +132,7 @@ class ImExPorterSettingsHandler
 
         return array(
             'compressionLevel' => $this->ezIni->variable('ImExPortSettings', 'CompressionLevel'),
-            'bckDir' => $this->ezIni->variable('ImExPortSettings', 'BckDir'),
+            'snapshotDir' => $this->ezIni->variable('ImExPortSettings', 'SnapshotDir'),
             'extensionSettingsMap' => $this->ezIni->variable('ImExPortSettings', 'ExtensionSettingsMap')
         );
         
