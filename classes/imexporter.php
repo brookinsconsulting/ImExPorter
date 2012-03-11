@@ -27,4 +27,12 @@ class ImExPorter
         $dumpImporter->importFromDump($snapshotName);
     }
     
+    /**
+     * loads a given sql structure file 
+     */
+    public function loadStructure()
+    {
+        
+    }
+    
 }

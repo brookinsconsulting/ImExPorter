@@ -12,11 +12,13 @@ ImExPorter - Handle your eZ Publish database easier! (for mysql and innodb)
 > You dont need to type in your database login all the time. ImExPorter reads your database-settings directly from your eZ Publish instance.
 > The snapshots are a lot smaller than a mysl-dump would be and they are split, so transfering them via scp/rsync/ftp isnt a big deal.
 >
-> At the moment only the content is exported. ImExPorter requires you, to have the same table structure on each databases you import or export
-> from/to. This soon will be history.
+> In first place you will need a structure inside of your database, so ImExPorter can apply the data on tables. Fortunately ImExPorter is also
+> capable of executing sql-dumps on your database, so you can create a working environment (database wise) by just running two cli commands.
 
 # Features
 >+ Create compressed snapshots of your db!
+>
+>+ Create the basic table-structure using a mysql-dump via cli!
 >
 >+ Use multiple snapshots and switch between them!
 >
@@ -46,6 +48,14 @@ ImExPorter - Handle your eZ Publish database easier! (for mysql and innodb)
 >
 > With importing it is the other way around. Running the import.php a snapshot from your "SnapshotDir" will be read and imported to your db. The tables will
 > be truncated before.
+>
+>+ If you import the first time on a freshly created database, you need to have a table-structure inside your db. Luckily you can do this with ImExPorter to, by just running php extension/imexporter/bin/loadstructure.php --structure=dump.sql.
+> The dumps are living in var/structure by default (you can change this using your config file). A current ezpublish community-edition dump is included. You simply have to copy it, to the given var-folder.
+
+# Available commands
+>+ php extension/imexporter/bin/export.php --snapshot=name (default snapshot is "default" if none given)
+>+ php extension/imexporter/bin/import.php --snapshot=name (default snapshot is "default" if none given) [WARNING: data is dropped!!!]
+>+ php extension/imexporter/bin/loadstructure.php --structure=name (default structure is "dump.sql" if none given) [WARNING: everything is dropped!!!]
 
 # Troubleshooting
 >+ ImExPorter is not finding my database-settings
@@ -60,6 +70,3 @@ ImExPorter - Handle your eZ Publish database easier! (for mysql and innodb)
 > and configure your extension plus settings-file in the so called "ExtensionSettingsMap". You can define as many extensions as you want,
 > but ImExPorter just cares for active extensions (more precise one). If there is a match with your configuration und currently active
 > extensions, ImExPorter will try to read the database-settings from there and use them.
-
-# TODO
->+ support for creating / changing the root structure (tables etc.) using a sql file

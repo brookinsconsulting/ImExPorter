@@ -42,4 +42,26 @@ class ImExPorterHelper
         return substr(__DIR__, 0, strpos(__DIR__, '/classes/lib')) . '/';
     }
     
+    /**
+     * shortcut for accessing the database-settings
+     * @return array
+     */
+    public static function getDatabaseSettings()
+    {
+        $settingsHandler = new ImExPorterSettingsHandler();
+        
+        return $settingsHandler->getDatabaseSettings();
+    }
+    
+    /**
+     * shortcut for accessing the extension-settings
+     * @return array
+     */
+    public static function getExtensionSettings()
+    {
+        $settingsHandler = new ImExPorterSettingsHandler();
+        
+        return $settingsHandler->getExtensionSettings();
+    }
+    
 }

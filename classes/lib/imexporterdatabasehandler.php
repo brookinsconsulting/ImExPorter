@@ -31,6 +31,28 @@ class ImExPorterDatabaseHandler
     }
     
     /**
+     * executes the given commands
+     * @param array $sql
+     * @throws Exception 
+     */
+    public function executeMultiple($sql=array())
+    {
+        if(count($sql) === 0)
+        {
+            throw new Exception('Empty array of sql commands, stopping!');
+        }
+        
+        $this->execute('BEGIN');
+        
+        foreach($sql as $sqlCommand)
+        {
+            $this->execute($sqlCommand);
+        }
+        
+        $this->execute('COMMIT');
+    }
+    
+    /**
      * get the defined tableNames in current db
      * @return array
      */
