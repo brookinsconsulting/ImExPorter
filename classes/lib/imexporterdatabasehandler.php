@@ -111,7 +111,7 @@ class ImExPorterDatabaseHandler
         
         foreach($values as $key => $value)
         {
-            $values[$key] = "'" . mysql_real_escape_string($value) . "'";
+            $values[$key] = "'" . $this->ezDb->escapeString($value) . "'";
         }
         
         $queryValues = implode(',', $values);
