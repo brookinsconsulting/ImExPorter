@@ -30,8 +30,10 @@ class ImExPorter
     /**
      * loads a given sql structure file 
      */
-    public function loadStructure()
+    public function loadStructure($structureFileName='dump.sql')
     {
+        $structureLoader = new ImExPorterStructureLoader();
+        $structureLoader->load($structureFileName);
         
     }
     

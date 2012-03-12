@@ -24,11 +24,11 @@ if($structureFileName == '')
 
 $cli->output('Loading structure ' . $structureFileName . ' ...');
 
-$structureLoader = new ImExPorterStructureLoader();
+$imExPorter = new ImExPorter();
 
 try
 {
-    $structureLoader->load($structureFileName);
+    $imExPorter->loadStructure($structureFileName);
 }
 catch(Exception $exception)
 {
